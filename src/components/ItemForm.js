@@ -14,7 +14,7 @@ function ItemForm({onAddItem}) {
       isInCart: false
     }
 
-    fetch("http://localhost:4000/items",{     //add content to RESTful API
+    fetch("http://localhost:4000/items",{     //add content to RESTful API.
       method: "POST",
       headers: {"Content-Type":"application/json"},
       body: JSON.stringify(newObj),
