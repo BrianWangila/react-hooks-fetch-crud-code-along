@@ -1,11 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-function ItemForm() {
+function ItemForm({onAddItem}) {
   const [name, setName] = useState("");
   const [category, setCategory] = useState("Produce");
 
+
+  function handleSubmit(e){
+    e.preventDefault()
+   
+    const newObj = {      //add new items to list
+      name: name,
+      category: category,
+      isInCart: false
+    }
+
+    fetch("http://localhost:4000/items",{     //add content to RESTful API
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify(newObj),
+
+    })
+    .then((resp) => resp.json())
+    .then((newData) => onAddItem(newData))
+
+  }
+
+
   return (
-    <form className="NewItem">
+    <form className="NewItem" onSubmit={handleSubmit}>
       <label>
         Name:
         <input
